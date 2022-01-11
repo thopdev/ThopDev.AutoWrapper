@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31815.197
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThopDev.AutoWrapper", "ThopDev.AutoWrapper\ThopDev.AutoWrapper.csproj", "{7A2E3984-7B83-4E78-AF3F-F474BD858293}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThopDev.Wrapper.Manual.Test", "ThopDev.Wrapper.Manual.Test\ThopDev.Wrapper.Manual.Test.csproj", "{42D6FD0F-5BF5-4B71-9067-E2D0F060AF2A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7A2E3984-7B83-4E78-AF3F-F474BD858293}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A2E3984-7B83-4E78-AF3F-F474BD858293}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A2E3984-7B83-4E78-AF3F-F474BD858293}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A2E3984-7B83-4E78-AF3F-F474BD858293}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42D6FD0F-5BF5-4B71-9067-E2D0F060AF2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42D6FD0F-5BF5-4B71-9067-E2D0F060AF2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42D6FD0F-5BF5-4B71-9067-E2D0F060AF2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42D6FD0F-5BF5-4B71-9067-E2D0F060AF2A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C1852049-0453-4DE3-971A-336B2DDBDE3D}
+	EndGlobalSection
+EndGlobal
