@@ -1,5 +1,6 @@
 ﻿using System;
 using System.CodeDom.Compiler;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -15,9 +16,9 @@ namespace ThopDev.AutoWrapper.Generators
         {
 
 //            if (!Debugger.IsAttached)
-      //      {
-        //        Debugger.Launch();
-      //      }
+            //    {
+            Debugger.Launch();
+          //    }
             context.RegisterForSyntaxNotifications(() => new WrapperAttributeSyntaxReceiver());
         }
 
@@ -85,7 +86,7 @@ namespace ThopDev.AutoWrapper
             AddUsingsToIndentWriter(indentWriter, argumentTypeInfo);
             AddNamespaceToIndentWriter(indentWriter, partialClass);
 
-            indentWriter.WriteLine($"public interface I{partialClass.Identifier.ValueText} {{");
+            indentWriter.WriteLine($"public partial interface I{partialClass.Identifier.ValueText} {{");
             indentWriter.Indent++;
             indentWriter.WriteLine();
 
@@ -119,9 +120,9 @@ namespace ThopDev.AutoWrapper
             indentWriter.Indent--;
             indentWriter.WriteLine("}");
 
-            foreach (var symbol in argumentTypeInfo.Type.GetMembers())
+            foreach (var symbol in argumentTypeInfo.Type.GetMembers().OfType<IMethodSymbol>().Where(method => !IsSignatureInClass(partialClass, method)))
             {
-                AddMethodToIndentWriter(indentWriter, argumentTypeInfo, (IMethodSymbol)symbol, true);
+                AddMethodToIndentWriter(indentWriter, argumentTypeInfo, symbol, true);
             }
 
             indentWriter.Indent--;
@@ -130,12 +131,36 @@ namespace ThopDev.AutoWrapper
             indentWriter.WriteLine("}");
         }
 
+        public bool IsSignatureInClass(ClassDeclarationSyntax syntax, IMethodSymbol methodSymbol)
+        {
+            return syntax.Members.OfType<MethodDeclarationSyntax>()
+                .Any(methodSyntax =>
+                    methodSyntax.Identifier.ValueText == methodSymbol.Name &&
+                    methodSyntax.ParameterList.Parameters 
+                        .Select((parameter, index) => (parameter: parameter, index: index))
+                        .All(x =>
+                        {
+                            var methodParameter = methodSymbol.Parameters.ElementAtOrDefault(x.index);
+
+                            if (methodParameter is null)
+                            {
+                                return false;
+                            }
+
+
+                            return x.parameter.Type.ToString().Equals(methodParameter.Type.ToString(),
+                                StringComparison.CurrentCultureIgnoreCase);
+                        }));
+
+
+
+        }
+
         private static TypeInfo GetArgumentType(ClassDeclarationSyntax partialClass, SemanticModel sementicModel)
         {
             var argumentTypeExpressionSyntax = ((TypeOfExpressionSyntax)partialClass.AttributeLists.First().Attributes.First()
                 .ArgumentList.Arguments.First().Expression).Type;
-            var argumentType = sementicModel.GetTypeInfo(argumentTypeExpressionSyntax);
-            return argumentType;
+            return sementicModel.GetTypeInfo(argumentTypeExpressionSyntax);
         }
 
         private static void AddFieldsToIndentWriter(IndentedTextWriter indentWriter, TypeInfo argumentType)
