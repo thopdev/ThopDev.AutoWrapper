@@ -5,7 +5,7 @@ using ThopDev.AutoWrapper;
 namespace ThopDev.Wrapper.Manual.Test
 {
     [Wrap(typeof(ToWrap))]
-    public partial class Test
+    public partial class Test : ITest
     {
         
     }
@@ -22,7 +22,7 @@ namespace ThopDev.Wrapper.Manual.Test
     {
         public X()
         {
-            var x = new Test(new ToWrap());
+            var x = new Test(new ToWrap()) as ITest;
             x.TestFunction("ab", true, 5);
         }
     }
