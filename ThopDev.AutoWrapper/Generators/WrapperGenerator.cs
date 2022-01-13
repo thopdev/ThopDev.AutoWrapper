@@ -14,11 +14,6 @@ namespace ThopDev.AutoWrapper.Generators
     {
         public void Initialize(GeneratorInitializationContext context)
         {
-
-//            if (!Debugger.IsAttached)
-            //    {
-            Debugger.Launch();
-          //    }
             context.RegisterForSyntaxNotifications(() => new WrapperAttributeSyntaxReceiver());
         }
 
