@@ -30,4 +30,4 @@ jobs:
       uses: actions/upload-artifact@v2.3.1
       with:
         name: AutoWrapper
-        path: "**/ThopDev.AutoWrapper/ThopDev.AutoWrapper/ThopDev.AutoWrapper/bin/Release/netstandard2.0/publish/"
+        path: /home/runner/work/ThopDev.AutoWrapper/ThopDev.AutoWrapper/ThopDev.AutoWrapper/bin/Release/netstandard2.0/publish/
